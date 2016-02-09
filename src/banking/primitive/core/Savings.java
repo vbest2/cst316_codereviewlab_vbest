@@ -13,14 +13,21 @@ public class Savings extends Account {
 	}
 
 	/**
-	 * A deposit comes with a fee of 50 cents per deposit
-	 */
+	 * Method: desposit(float amount)
+	 * Inputs: float amount - the amount to deposit into the account.
+	 * Returns: True if deposit was successful False otherwise.
+	 * 
+	 * Description: This method deposits the given amount into the savings
+	 * Account, after applying a 50 cent transaction fee.
+	 * 
+	*/
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > 0.0f) {
 			balance = balance + amount - 0.50F;
 			if (balance >= 0.0f) {
 				setState(State.OPEN);
 			}
+			return true;
 		}
 		return false;
 	}
