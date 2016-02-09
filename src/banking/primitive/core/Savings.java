@@ -26,15 +26,34 @@ public class Savings extends Account {
 	}
 
 	/**
-	 * A withdrawal. After 3 withdrawals a fee of $1 is added to each withdrawal.
-	 * An account whose balance dips below 0 is in an OVERDRAWN state
+	 * Method: withdraw(float amount)
+	 * Inputs: float amount - the amount to be withdrawn from the Savings account.
+	 * Returns: True if withdrawal was successful False otherwise.
+	 * 
+	 * Description: This method withdraws the given amount form the users savings account.
+	 * After 3 withdrawals a fee of $1 is added to each withdrawal.
+	 * An account whose balance dips to 0 is in an OVERDRAWN state
 	 */
 	public boolean withdraw(float amount) {
+		
+		//Make sure user cannot withdraw more than their balance
+		//including withdraw fee
+		if (numWithdraws > 3){
+			if(balance < (amount + 1) ){
+				return false;
+			}
+		}
+		//Make sure user cannot withdraw more than their balance
+		else if(balance < amount){
+			return false;
+		}
+		
 		if (getState() == State.OPEN && amount > 0.0f) {
 			balance = balance - amount;
 			numWithdraws++;
-			if (numWithdraws > 3)
+			if (numWithdraws > 3){
 				balance = balance - 1.0f;
+			}
 			// KG BVA: should be < 0
 			if (balance <= 0.0f) {
 				setState(State.OVERDRAWN);
